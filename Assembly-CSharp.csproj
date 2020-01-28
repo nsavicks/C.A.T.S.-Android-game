@@ -64,12 +64,15 @@
      <Compile Include="Assets\Scripts\Game.cs" />
      <Compile Include="Assets\Scripts\Garage.cs" />
      <Compile Include="Assets\Scripts\GarageButtons.cs" />
+     <Compile Include="Assets\Scripts\GoToScript.cs" />
      <Compile Include="Assets\Scripts\Models\Box.cs" />
      <Compile Include="Assets\Scripts\Models\Car.cs" />
      <Compile Include="Assets\Scripts\Models\CarPart.cs" />
      <Compile Include="Assets\Scripts\Models\Player.cs" />
      <Compile Include="Assets\Scripts\Models\RenderedCar.cs" />
+     <Compile Include="Assets\Scripts\MusicPlayer.cs" />
      <Compile Include="Assets\Scripts\RocketAttackDetection.cs" />
+     <Compile Include="Assets\Scripts\SettingsMenu.cs" />
      <Compile Include="Assets\Scripts\StartupScene.cs" />
      <Compile Include="Assets\Scripts\WallAttackDetection.cs" />
      <Compile Include="Assets\Scripts\WinnerButton.cs" />

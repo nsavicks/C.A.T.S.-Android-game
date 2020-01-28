@@ -63,9 +63,9 @@ public class CarRenderer : MonoBehaviour
                     }
                     else
                     {
-                        attack1Pos[0] = new Vector3(-1.16f, -0.11f);
-                        attack1Pos[1] = new Vector3(-0.55f, -0.16f);
-                        attack1Pos[2] = new Vector3(-1.16f, -0.11f);
+                        attack1Pos[0] = new Vector3(-1.16f, -0.11f);  
+                        attack1Pos[1] = new Vector3(-1.16f, -0.11f);
+                        attack1Pos[2] = new Vector3(-0.55f, -0.16f);
                         attack1Pos[3] = new Vector3(-1.16f, -0.11f);
 
                         forkliftPos = new Vector3(0.63f, -0.67f);
@@ -84,7 +84,7 @@ public class CarRenderer : MonoBehaviour
                     if (!flipped)
                     {
                         attack1Pos[0] = new Vector3(1.65f, 0.3f);
-                        attack1Pos[1] = new Vector3(1.21f, -0.14f);
+                        attack1Pos[1] = new Vector3(1.65f, 0.3f);
                         attack1Pos[2] = new Vector3(0.97f, 0.24f);
                         attack1Pos[3] = new Vector3(1.65f, 0.3f);
 
@@ -98,9 +98,9 @@ public class CarRenderer : MonoBehaviour
                     }
                     else
                     {
-                        attack1Pos[0] = new Vector3(-1.61f, 0.29f);
-                        attack1Pos[1] = new Vector3(-0.99f, 0.25f);
-                        attack1Pos[2] = new Vector3(-1.61f, 0.29f);
+                        attack1Pos[0] = new Vector3(-1.61f, 0.29f);   
+                        attack1Pos[1] = new Vector3(-1.61f, 0.29f);
+                        attack1Pos[2] = new Vector3(-0.99f, 0.25f);
                         attack1Pos[3] = new Vector3(-1.61f, 0.29f);
 
                         forkliftPos = new Vector3(0.27f, -0.09f);
@@ -119,7 +119,7 @@ public class CarRenderer : MonoBehaviour
                     {
                         attack1Pos[0] = new Vector3(1.77f, 0.18f);
                         attack1Pos[1] = new Vector3(1.77f, 0.18f);
-                        attack1Pos[2] = new Vector3(0.26f, 0.04f);
+                        attack1Pos[2] = new Vector3(1.13f, 0.14f);
                         attack1Pos[3] = new Vector3(1.77f, 0.18f);
 
                         attack2Pos = new Vector3(-0.2f, 0.08f);
@@ -135,8 +135,8 @@ public class CarRenderer : MonoBehaviour
                     else
                     {
                         attack1Pos[0] = new Vector3(-1.77f, 0.23f);
-                        attack1Pos[1] = new Vector3(0.26f, 0.04f);
-                        attack1Pos[2] = new Vector3(-1.77f, 0.23f);
+                        attack1Pos[1] = new Vector3(-1.77f, 0.23f);
+                        attack1Pos[2] = new Vector3(-1.11f, 0.18f);
                         attack1Pos[3] = new Vector3(-1.77f, 0.23f);
 
                         attack2Pos = new Vector3(0.26f, 0.1f);
@@ -191,7 +191,7 @@ public class CarRenderer : MonoBehaviour
                     attack1 = Instantiate(stinger, new Vector3(0, 0), Quaternion.identity);
                     attack1.transform.position = chassisPos + attack1Pos[3];
                     break;
-            }
+            }  
 
             attack1.transform.SetParent(chassis.transform);
             attack1.transform.localScale = new Vector3(0.5f, 0.5f);

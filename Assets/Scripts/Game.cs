@@ -71,7 +71,7 @@ public class Game : MonoBehaviour
 
             FireRockets();
 
-            if (Time.time - lastHPChangeTime > 10.0f) moveWalls = true;
+           // if (Time.time - lastHPChangeTime > 10.0f) moveWalls = true;
 
             UpdateWalls();
         }
@@ -127,14 +127,8 @@ public class Game : MonoBehaviour
         if (playerCar.chassis != null && playerCar.attack1 != null)
             Physics2D.IgnoreCollision(playerCar.renderedCar.chassis.GetComponent<PolygonCollider2D>(), playerCar.renderedCar.attack1.GetComponent<PolygonCollider2D>());
 
-        if (playerCar.chassis != null && playerCar.attack2 != null)
-            Physics2D.IgnoreCollision(playerCar.renderedCar.chassis.GetComponent<PolygonCollider2D>(), playerCar.renderedCar.attack2.GetComponent<PolygonCollider2D>());
-
         if (opponentCar.chassis != null && opponentCar.attack1 != null)
             Physics2D.IgnoreCollision(opponentCar.renderedCar.chassis.GetComponent<PolygonCollider2D>(), opponentCar.renderedCar.attack1.GetComponent<PolygonCollider2D>());
-
-        if (opponentCar.chassis != null && opponentCar.attack2 != null)
-            Physics2D.IgnoreCollision(opponentCar.renderedCar.chassis.GetComponent<PolygonCollider2D>(), opponentCar.renderedCar.attack2.GetComponent<PolygonCollider2D>());
     }
 
     void GetOpponent()

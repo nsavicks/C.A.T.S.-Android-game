@@ -10,8 +10,9 @@ public class Garage : MonoBehaviour
     public GameObject boxPrefab;
     public GameObject gameObject;
 
+    public GameObject[] boxPlaces;
+
     private Player player;
-    private static float[] boxesPosition = { 4, 2, 0, -2 };
 
     // Start is called before the first frame update
     void Start()
@@ -40,12 +41,8 @@ public class Garage : MonoBehaviour
 
         for (int i = 0; i < boxes.Count; i++)
         {
-
-            GameObject boxObj = Instantiate(boxPrefab) as GameObject;
-            boxObj.transform.position = new Vector3(-7, boxesPosition[i]);
-
-            GameObject ngo = new GameObject("proba");
-            ngo.transform.SetParent(canvas.transform, false);
+            Transform crate = boxPlaces[i].transform.GetChild(0);
+            Transform text = boxPlaces[i].transform.GetChild(1);
 
             long now = (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;
 
@@ -54,10 +51,10 @@ public class Garage : MonoBehaviour
 
             if (elapsed < 120) label = (120 - elapsed) + "m";
 
-            Text text = ngo.AddComponent<Text>();
-            text.font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
-            text.text = label;
-            text.rectTransform.anchoredPosition = new Vector3(-340.0f, boxesPosition[i] * 50.0f + -10.0f, 0f);
+            text.gameObject.GetComponent<Text>().text = label;
+
+            text.gameObject.SetActive(true);
+            crate.gameObject.SetActive(true);
 
         }
 
@@ -70,7 +67,9 @@ public class Garage : MonoBehaviour
 
         CarRenderer carRenderer = gameObject.GetComponent<CarRenderer>();
 
-        carRenderer.RenderCar(car, new Vector3(0,0), false, false, null, -1);
+        RenderedCar renderedCar = carRenderer.RenderCar(car, new Vector3(0,0), false, false, null, -1);
+
+        renderedCar.chassis.transform.localScale = new Vector3(2f, 2f);
 
     }
 
