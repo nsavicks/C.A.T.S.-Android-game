@@ -8,6 +8,7 @@ public class GarageButtons : MonoBehaviour
 {
 
     public GameObject settingsMenu;
+    public GameObject gameHistory;
     public Toggle music, controls;
 
     public void Play()
@@ -17,13 +18,12 @@ public class GarageButtons : MonoBehaviour
 
     public void Settings()
     {
-        music.isOn = PlayerPrefs.GetInt("music") == 1;
-        controls.isOn = PlayerPrefs.GetInt("controls") == 1;
-        settingsMenu.SetActive(true);
+        if (!gameHistory.activeSelf)
+        {
+            music.isOn = PlayerPrefs.GetInt("music") == 1;
+            controls.isOn = PlayerPrefs.GetInt("controls") == 1;
+            settingsMenu.SetActive(true);
+        }
     }
 
-    public void GameHistory()
-    {
-
-    }
 }

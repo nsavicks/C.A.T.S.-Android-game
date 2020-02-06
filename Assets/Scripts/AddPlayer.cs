@@ -35,6 +35,28 @@ public class AddPlayer : MonoBehaviour
 
         }
 
+        p = DatabaseDataAcces.getPlayerWithNickname(nick);
+
+        int chassisId = DatabaseDataAcces.InsertHasCarPart(p.id, 1, 1);
+        int attackId = DatabaseDataAcces.InsertHasCarPart(p.id, 7, 1);
+        int wheelId = DatabaseDataAcces.InsertHasCarPart(p.id, 5, 1);
+        int wheel2Id = DatabaseDataAcces.InsertHasCarPart(p.id, 5, 1);
+
+        HasCarPart chassis = DatabaseDataAcces.getHasCarPart(chassisId);
+        HasCarPart attack = DatabaseDataAcces.getHasCarPart(attackId);
+        HasCarPart wheel = DatabaseDataAcces.getHasCarPart(wheelId);
+        HasCarPart wheel2 = DatabaseDataAcces.getHasCarPart(wheel2Id);
+
+        DatabaseDataAcces.InsertPlayerCar(p.id);
+
+        DatabaseDataAcces.changePart(chassis, 1);
+        DatabaseDataAcces.changePart(attack, 1);
+        DatabaseDataAcces.changePart(wheel, 1);
+        DatabaseDataAcces.changePart(wheel2, 2);
+
+        DatabaseDataAcces.insertBox(p.id, 0);
+        DatabaseDataAcces.insertBox(p.id, 0);
+
         SceneManager.LoadScene("StartupScene");
 
     }

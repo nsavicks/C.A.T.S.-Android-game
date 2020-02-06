@@ -18,7 +18,7 @@ public class CarRenderer : MonoBehaviour
     public GameObject stinger;
 
 
-    public RenderedCar RenderCar(Car car, Vector3 chassisPos, bool isGame, bool flipped, Game game, int player)
+    public RenderedCar RenderCar(Car car, Vector3 chassisPos, bool isGame, bool flipped, Game game, int player, bool playerControls)
     {
 
         GameObject chassis = null;
@@ -35,6 +35,9 @@ public class CarRenderer : MonoBehaviour
         Vector3 backWheelPos = Vector3.zero;
         Vector3 anchorPos = Vector3.zero;
         Vector3 connectedAnchor = Vector3.zero;
+
+        Vector3 bladeAnchorPos = Vector3.zero;
+        Vector3 bladeConnectedAnchor = Vector3.zero;
 
         float speed = (flipped) ? -300f : 300f;
 
@@ -60,6 +63,9 @@ public class CarRenderer : MonoBehaviour
                         frontWheelPos = new Vector3(0.55f, -1.24f);
                         backWheelPos = new Vector3(-0.55f, -1.24f);
 
+                        bladeAnchorPos = new Vector3(-1.25f, -0.09f);
+                        bladeConnectedAnchor = new Vector3(0.585f, -0.185f);
+
                     }
                     else
                     {
@@ -74,6 +80,9 @@ public class CarRenderer : MonoBehaviour
 
                         frontWheelPos = new Vector3(-0.48f, -1.24f);
                         backWheelPos = new Vector3(0.53f, -1.24f);
+
+                        bladeAnchorPos = new Vector3(1.35f, -0.09f);
+                        bladeConnectedAnchor = new Vector3(-0.485f, -0.155f);
                     }
 
                     break;
@@ -95,6 +104,9 @@ public class CarRenderer : MonoBehaviour
                         frontWheelPos = new Vector3(0.55f, -0.48f);
                         backWheelPos = new Vector3(-0.91f, -0.48f);
 
+                        bladeAnchorPos = new Vector3(-1.29f, -0.09f);
+                        bladeConnectedAnchor = new Vector3(1.005f, 0.255f);
+
                     }
                     else
                     {
@@ -109,6 +121,9 @@ public class CarRenderer : MonoBehaviour
 
                         frontWheelPos = new Vector3(-0.49f, -0.48f);
                         backWheelPos = new Vector3(0.92f, -0.48f);
+
+                        bladeAnchorPos = new Vector3(1.33f, -0.09f);
+                        bladeConnectedAnchor = new Vector3(-0.945f, 0.245f);
                     }
                     break;
                 case 3:
@@ -131,6 +146,9 @@ public class CarRenderer : MonoBehaviour
                         frontWheelPos = new Vector3(1.07f, -0.57f);
                         backWheelPos = new Vector3(-0.17f, -0.57f);
 
+                        bladeAnchorPos = new Vector3(-1.26f, -0.11f);
+                        bladeConnectedAnchor = new Vector3(1.14f, 0.125f);
+
                     }
                     else
                     {
@@ -147,6 +165,9 @@ public class CarRenderer : MonoBehaviour
 
                         frontWheelPos = new Vector3(-1.03f, -0.57f);
                         backWheelPos = new Vector3(0.2f, -0.57f);
+
+                        bladeAnchorPos = new Vector3(1.33f, -0.11f);
+                        bladeConnectedAnchor = new Vector3(-1.105f, 0.175f);
                     }
                     break;
             }
@@ -158,7 +179,7 @@ public class CarRenderer : MonoBehaviour
 
             if (isGame)
             {
-                chassis.AddComponent<Rigidbody2D>().mass = 1;
+                chassis.AddComponent<Rigidbody2D>().mass = 5;
                 chassis.AddComponent<PolygonCollider2D>();
                 WallAttackDetection wallAttack = chassis.AddComponent<WallAttackDetection>();
                 wallAttack.game = game;
@@ -204,9 +225,27 @@ public class CarRenderer : MonoBehaviour
 
             if (isGame)
             {
-                FixedJoint2D joint = attack1.AddComponent<FixedJoint2D>();
-                joint.connectedBody = chassis.GetComponent<Rigidbody2D>();
-                attack1.GetComponent<Rigidbody2D>().mass = 0.1f;
+                if (car.attack1.id == 7)
+                {
+                    HingeJoint2D joint = attack1.AddComponent<HingeJoint2D>();
+                    joint.connectedBody = chassis.GetComponent<Rigidbody2D>();
+                    joint.anchor = bladeAnchorPos;
+                    joint.connectedAnchor = bladeConnectedAnchor;
+
+                    JointMotor2D motor = joint.motor;
+                    motor.motorSpeed = 200;
+                    motor.maxMotorTorque = 50;
+                    joint.motor = motor;
+
+                    attack1.GetComponent<Rigidbody2D>().mass = 0.3f;
+                }
+                else
+                {
+                    FixedJoint2D joint = attack1.AddComponent<FixedJoint2D>();
+                    joint.connectedBody = chassis.GetComponent<Rigidbody2D>();
+                    attack1.GetComponent<Rigidbody2D>().mass = 0.1f;
+
+                }
 
                 PolygonCollider2D polygonCollider = attack1.AddComponent<PolygonCollider2D>();
                 polygonCollider.isTrigger = true;
@@ -266,6 +305,8 @@ public class CarRenderer : MonoBehaviour
                 motor.motorSpeed = speed;
                 wheelJoint2D.motor = motor;
 
+                wheelJoint2D.useMotor = !playerControls;
+
                 CircleCollider2D circleCollider = frontWheel.AddComponent<CircleCollider2D>();
                 circleCollider.radius = radius;
             }
@@ -316,6 +357,8 @@ public class CarRenderer : MonoBehaviour
                 motor.motorSpeed = speed;
                 wheelJoint2D.motor = motor;
 
+                wheelJoint2D.useMotor = !playerControls;
+
                 CircleCollider2D circleCollider = backWheel.AddComponent<CircleCollider2D>();
                 circleCollider.radius = radius;
             }
@@ -345,9 +388,12 @@ public class CarRenderer : MonoBehaviour
                 joint.connectedAnchor = connectedAnchor;
 
                 JointMotor2D motor = joint.motor;
-                motor.motorSpeed = 100;
-                motor.maxMotorTorque = 50;
+                if (player == 0) motor.motorSpeed = -50;
+                else motor.motorSpeed = 50;
+                motor.maxMotorTorque = 500;
                 joint.motor = motor;
+
+                joint.useMotor = !playerControls;
 
                 forkliftObj.GetComponent<Rigidbody2D>().mass = 0.3f;
 
@@ -391,4 +437,32 @@ public class CarRenderer : MonoBehaviour
 
     }
 
+    public GameObject RenderItem(int id)
+    {
+        switch (id)
+        {
+            case 1:
+                return Instantiate(chassis1);
+            case 2:
+                return Instantiate(chassis2);
+            case 3:
+                return Instantiate(chassis3);
+            case 4:
+                return Instantiate(wheel1);
+            case 5:
+                return Instantiate(wheel2);
+            case 6:
+                return Instantiate(forklift);
+            case 7:
+                return Instantiate(blade);
+            case 8:
+                return Instantiate(chainsaw);
+            case 9:
+                return Instantiate(rocket);
+            case 10:
+                return Instantiate(stinger);
+        }
+
+        return null;
+    }
 }

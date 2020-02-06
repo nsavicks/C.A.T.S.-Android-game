@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,13 @@ public class Game : MonoBehaviour
     public Text winnerText;
     public Button goToGarage;
     public GameObject winnerBackground;
+    public GameObject explosionPrefab;
+
+    public Text playerName;
+    public Text opponentName;
+
+    public AudioSource audioSource;
+    
 
     private bool finished = false;
 
@@ -22,30 +30,35 @@ public class Game : MonoBehaviour
     private Car playerCar;
     private Car opponentCar;
 
-    private int playerHP = 100;
-    private int opponentHP = 100;
+    private int playerHP;
+    private int opponentHP;
 
     private bool playerAttacking = false;
     private bool opponentAttacking = false;
 
-    private int HealthRefreshRate = 30;
+    private int HealthRefreshRate = 5;
 
     private int RocketMoveRate = 10;
     private int RocketFireRate = 75;
-    private List<GameObject> playerRockets = new List<GameObject>();
-    private List<Vector3> playerRocketsDirection = new List<Vector3>();
-    private List<GameObject> opponentRockets = new List<GameObject>();
-    private List<Vector3> opponentRocketsDirection = new List<Vector3>();
 
-    private float lastHPChangeTime = 0;
+    private float lastHPChangeTime;
 
-    private bool moveWalls = false;
-    private bool playerHittingWall = false;
-    private bool opponentHittingWall = false;
+    private bool moveWalls;
+    private bool playerHittingWall;
+    private bool opponentHittingWall;
+
+    private bool playerControls;
 
     // Start is called before the first frame update
     void Start()
     {
+
+        moveWalls = false;
+        playerHittingWall = false;
+        opponentHittingWall = false;
+        lastHPChangeTime = Time.time;
+        playerControls = PlayerPrefs.GetInt("controls") == 1;
+
         string nickname = PlayerPrefs.GetString("player");
 
         player = DatabaseDataAcces.getPlayerWithNickname(nickname);
@@ -55,6 +68,10 @@ public class Game : MonoBehaviour
         winnerBackground.gameObject.SetActive(false);
 
         GetOpponent();
+
+        playerName.text = player.nickname;
+        opponentName.text = opponent.nickname;
+
         LoadCars();
         IgnoreCollisions();
         
@@ -67,11 +84,9 @@ public class Game : MonoBehaviour
         {
             UpdateHealth();
 
-            UpdateRockets();
-
             FireRockets();
 
-           // if (Time.time - lastHPChangeTime > 10.0f) moveWalls = true;
+           if (Time.time - lastHPChangeTime > 10.0f) moveWalls = true;
 
             UpdateWalls();
         }
@@ -133,8 +148,16 @@ public class Game : MonoBehaviour
 
     void GetOpponent()
     {
-        // TODO Get random opponent
-        opponent = player;
+        List<Player> players = DatabaseDataAcces.getAllPlayers();
+
+        while (true)
+        {
+            int ind = UnityEngine.Random.Range(0, players.Count);
+
+            opponent = players[ind];
+
+            if (opponent.id != player.id) break;
+        }
     }
 
     void LoadCars()
@@ -144,11 +167,20 @@ public class Game : MonoBehaviour
 
         playerCar = DatabaseDataAcces.getPlayersCar(player.id);
 
-        playerCar.renderedCar = carRenderer.RenderCar(playerCar, new Vector3(-5.0f, -2.5f), true, false, this, 0);
+        playerCar.renderedCar = carRenderer.RenderCar(playerCar, new Vector3(-5.0f, -2.5f), true, false, this, 0, playerControls);
 
         opponentCar = DatabaseDataAcces.getPlayersCar(opponent.id);
 
-        opponentCar.renderedCar =  carRenderer.RenderCar(opponentCar, new Vector3(5.0f, -2.5f), true, true, this, 1);
+        opponentCar.renderedCar =  carRenderer.RenderCar(opponentCar, new Vector3(5.0f, -2.5f), true, true, this, 1, false);
+
+        playerHP = playerCar.GetCarHealth();
+        opponentHP = opponentCar.GetCarHealth();
+
+        if (playerControls)
+        {
+            PlayerControls playerControls = gObj.AddComponent<PlayerControls>();
+            playerControls.car = playerCar;
+        }
 
     }
 
@@ -182,25 +214,25 @@ public class Game : MonoBehaviour
         {
             if (playerAttacking)
             {
-                ReduceHP(1, playerCar.attack1.power);
+                ReduceHP(1, playerCar.attack1.power * playerCar.attack1Stars);
             }
 
             if (opponentAttacking)
             {
-                ReduceHP(0, opponentCar.attack1.power);
+                ReduceHP(0, opponentCar.attack1.power * opponentCar.attack1Stars);
             }
 
-            if (playerHittingWall)
+            if (playerHittingWall && moveWalls)
             {
-                ReduceHP(0, 10);
+                ReduceHP(0, 5);
             }
 
-            if (opponentHittingWall)
+            if (opponentHittingWall && moveWalls)
             {
-                ReduceHP(1, 10);
+                ReduceHP(1, 5);
             }
 
-            HealthRefreshRate = 30;
+            HealthRefreshRate = 5;
         }
         else
         {
@@ -221,8 +253,8 @@ public class Game : MonoBehaviour
             opponentHP -= amount;
         }
 
-        playerHB.fillAmount = playerHP / 100.0f;
-        opponentHB.fillAmount = opponentHP / 100.0f;
+        playerHB.fillAmount = playerHP / (playerCar.GetCarHealth() * 1f);
+        opponentHB.fillAmount = opponentHP / (opponentCar.GetCarHealth() * 1f);
 
         if (playerHP <= 0)
         {
@@ -271,41 +303,26 @@ public class Game : MonoBehaviour
 
     }
 
-    public void UpdateRockets()
-    {
-
-        for (int i = 0; i < playerRockets.Count; i++)
-        {
-            Vector3 direction = playerRocketsDirection[i];
-            playerRockets[i].transform.position += direction * Time.deltaTime * RocketMoveRate;
-        }
-
-        for (int i = 0; i < opponentRockets.Count; i++)
-        {
-            Vector3 direction = opponentRocketsDirection[i];
-            direction.x *= -1f;
-            opponentRockets[i].transform.position += direction * Time.deltaTime * RocketMoveRate;
-        }
-
-    }
-
     public void GenerateRocket(Vector3 position, int player, int attackId)
     {
-        GameObject missile = Instantiate(missilePrefab, position, Quaternion.identity);
-        missile.transform.localScale = new Vector3(0.5f, 0.5f);
+        GameObject missile = null;
+        
 
         if (player == 1)
         {
+            missile = Instantiate(missilePrefab, position, opponentCar.renderedCar.chassis.transform.rotation);
             missile.GetComponent<SpriteRenderer>().flipX = true;
-            missile.transform.Rotate(opponentCar.renderedCar.chassis.transform.eulerAngles);
+            missile.GetComponent<Rigidbody2D>().AddForce(-opponentCar.renderedCar.chassis.transform.right * 300);
         }
         else
         {
-            missile.transform.Rotate(playerCar.renderedCar.chassis.transform.eulerAngles);
+            missile = Instantiate(missilePrefab, position, playerCar.renderedCar.chassis.transform.rotation);
+            missile.GetComponent<Rigidbody2D>().AddForce(playerCar.renderedCar.chassis.transform.right * 300);
         }
 
+        missile.transform.localScale = new Vector3(0.5f, 0.5f);
+
         PolygonCollider2D polygonCollider = missile.AddComponent<PolygonCollider2D>();
-        polygonCollider.isTrigger = true;
 
         RocketAttackDetection rocketAttack = missile.AddComponent<RocketAttackDetection>();
         rocketAttack.game = this;
@@ -313,64 +330,76 @@ public class Game : MonoBehaviour
         rocketAttack.rocket = missile;
         rocketAttack.attackId = attackId;
 
+        // Remove collisions with his chassis
         if (player == 0)
         {
-            rocketAttack.direction = playerCar.renderedCar.chassis.transform.right;
-            playerRockets.Add(missile);
-            playerRocketsDirection.Add(playerCar.renderedCar.chassis.transform.right);
+            Physics2D.IgnoreCollision(polygonCollider, playerCar.renderedCar.chassis.GetComponent<PolygonCollider2D>());
+            if (playerCar.forklift != null)
+                Physics2D.IgnoreCollision(polygonCollider, playerCar.renderedCar.forklift.GetComponent<PolygonCollider2D>());
+            if (opponentCar.forklift != null)
+                Physics2D.IgnoreCollision(polygonCollider, opponentCar.renderedCar.forklift.GetComponent<PolygonCollider2D>());
         }
         else
         {
-            rocketAttack.direction = opponentCar.renderedCar.chassis.transform.right;
-            opponentRockets.Add(missile);
-            opponentRocketsDirection.Add(opponentCar.renderedCar.chassis.transform.right);
-        }    
-
-        // Remove collisions with his chassis
-        if (player == 0)
-            Physics2D.IgnoreCollision(polygonCollider, playerCar.renderedCar.chassis.GetComponent<PolygonCollider2D>());
-        else
             Physics2D.IgnoreCollision(polygonCollider, opponentCar.renderedCar.chassis.GetComponent<PolygonCollider2D>());
+            if (playerCar.forklift != null)
+                Physics2D.IgnoreCollision(polygonCollider, playerCar.renderedCar.forklift.GetComponent<PolygonCollider2D>());
+            if (opponentCar.forklift != null)
+                Physics2D.IgnoreCollision(polygonCollider, opponentCar.renderedCar.forklift.GetComponent<PolygonCollider2D>());
+        }
+ 
     }
 
     public void RocketHit(int player, GameObject rocket, Vector3 direction)
     {
         if (player == 0)
         {
-            playerRockets.Remove(rocket);
-            playerRocketsDirection.Remove(direction);
             GameObject.Destroy(rocket);
         }
         else
         {
-            opponentRockets.Remove(rocket);
-            opponentRocketsDirection.Remove(direction);
             GameObject.Destroy(rocket);
         }
+
+        audioSource.Play();
     }
 
     public void RocketHitChassis(int player, int attackId, GameObject rocket, Vector3 direction)
     {
         if (player == 0)
         {
+
+            //Vector2 vel = opponentCar.renderedCar.chassis.GetComponent<Rigidbody2D>().velocity;
+            //vel.y += 1.5f;
+            //vel.x += 1f;
+
+            //opponentCar.renderedCar.chassis.GetComponent<Rigidbody2D>().velocity = vel;
+
             if (attackId == 1)
             {
-                ReduceHP(1, playerCar.attack1.power);
+                ReduceHP(1, playerCar.attack1.power * playerCar.attack1Stars);
             }
             else
             {
-                ReduceHP(1, playerCar.attack2.power);
+                ReduceHP(1, playerCar.attack2.power * playerCar.attack2Stars);
             }
         }
         else
         {
+
+            //Vector2 vel = playerCar.renderedCar.chassis.GetComponent<Rigidbody2D>().velocity;
+            //vel.y += 1.5f;
+            //vel.x -= 1f;
+
+            //playerCar.renderedCar.chassis.GetComponent<Rigidbody2D>().velocity = vel;
+
             if (attackId == 1)
             {
-                ReduceHP(0, opponentCar.attack1.power);
+                ReduceHP(0, opponentCar.attack1.power * opponentCar.attack1Stars);
             }
             else
             {
-                ReduceHP(0, opponentCar.attack2.power);
+                ReduceHP(0, opponentCar.attack2.power * opponentCar.attack2Stars);
             }
         }
 
@@ -405,10 +434,23 @@ public class Game : MonoBehaviour
     {
         if (winner == 0)
         {
+
+            DatabaseDataAcces.insertGamePlayed(player.id, opponent.id, 1, 0);
+
+            int wonCount = DatabaseDataAcces.getNumberofWonInRow(player.id);
+            int cntNotOpened = DatabaseDataAcces.getNumberOfNotOpenedBoxes(player.id);
+
+            if (wonCount % 3 == 0 && cntNotOpened < 4)
+            {
+                long now = (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;
+                DatabaseDataAcces.insertBox(player.id, now);
+            }
+
             winnerText.text = "You won!";
         }
         else
         {
+            DatabaseDataAcces.insertGamePlayed(player.id, opponent.id, 2, 0);
             winnerText.text = "You lost!";
         }
 

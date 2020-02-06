@@ -26,10 +26,13 @@ public class DatabaseConnection : MonoBehaviour
 
             if (Application.platform == RuntimePlatform.Android)
             {
-                WWW reader = new WWW(originPath);
-                while (!reader.isDone) { }
+                if (!File.Exists(realPath))
+                {
+                    WWW reader = new WWW(originPath);
+                    while (!reader.isDone) { }
 
-                File.WriteAllBytes(realPath, reader.bytes);
+                    File.WriteAllBytes(realPath, reader.bytes);
+                }
             }
             else
             {

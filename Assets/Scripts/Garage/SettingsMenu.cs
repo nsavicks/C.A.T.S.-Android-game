@@ -7,6 +7,7 @@ public class SettingsMenu : MonoBehaviour
 {
     public GameObject settingsMenu;
     public Toggle music, controls;
+    public GameObject newItem;
 
     public void CloseSettings()
     {
@@ -24,5 +25,12 @@ public class SettingsMenu : MonoBehaviour
         {
             source.Stop();
         }
+    }
+
+    public void CloseNewItem()
+    {
+        Transform itemTransform = newItem.transform.GetChild(3);
+        Destroy(itemTransform.gameObject);
+        newItem.SetActive(false);
     }
 }

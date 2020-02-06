@@ -5,10 +5,15 @@ ScriptsOnlyBuild:
     - BoxOnClick
     - CarRenderer
     - Game
+    - GameHistory
+    - GameHistoryDialog
     - Garage
     - GarageButtons
+    - GoToScript
+    - ModifyCar
     - MusicPlayer
     - SettingsMenu
+    - StartupButtons
     - StartupScene
     - WinnerButton
     Unity.2D.Tilemap.Editor.dll:
@@ -22,6 +27,12 @@ ScriptsOnlyBuild:
     - TMPro.TMP_Settings
     - TMPro.TMP_SpriteAsset
     - TMPro.TMP_StyleSheet
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -30,8 +41,10 @@ ScriptsOnlyBuild:
     - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
+    - UnityEngine.UI.ContentSizeFitter
     - UnityEngine.UI.Dropdown
     - UnityEngine.UI.GraphicRaycaster
+    - UnityEngine.UI.HorizontalLayoutGroup
     - UnityEngine.UI.Image
     - UnityEngine.UI.InputField
     - UnityEngine.UI.Mask
@@ -39,6 +52,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Scrollbar
     - UnityEngine.UI.Text
     - UnityEngine.UI.Toggle
+    - UnityEngine.UI.VerticalLayoutGroup
   sceneClasses:
     Assets/Scenes/AddPlayer.unity:
     - Class: 1
@@ -60,21 +74,23 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9704}
     - Class: 114
-      Script: {instanceID: 9876}
+      Script: {instanceID: 9878}
     - Class: 114
-      Script: {instanceID: 9918}
+      Script: {instanceID: 9920}
     - Class: 114
-      Script: {instanceID: 10322}
+      Script: {instanceID: 10334}
     - Class: 114
-      Script: {instanceID: 10698}
+      Script: {instanceID: 10716}
     - Class: 114
-      Script: {instanceID: 10894}
+      Script: {instanceID: 10914}
     - Class: 114
-      Script: {instanceID: 11184}
+      Script: {instanceID: 11056}
     - Class: 114
-      Script: {instanceID: 11438}
+      Script: {instanceID: 11206}
     - Class: 114
-      Script: {instanceID: 11566}
+      Script: {instanceID: 11460}
+    - Class: 114
+      Script: {instanceID: 11588}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -110,30 +126,40 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 61
       Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
       Script: {instanceID: 9704}
     - Class: 114
-      Script: {instanceID: 9876}
+      Script: {instanceID: 9878}
     - Class: 114
-      Script: {instanceID: 9910}
+      Script: {instanceID: 9912}
     - Class: 114
-      Script: {instanceID: 9918}
+      Script: {instanceID: 9920}
     - Class: 114
-      Script: {instanceID: 9984}
+      Script: {instanceID: 9990}
     - Class: 114
-      Script: {instanceID: 10322}
+      Script: {instanceID: 10334}
     - Class: 114
-      Script: {instanceID: 10698}
+      Script: {instanceID: 10716}
     - Class: 114
-      Script: {instanceID: 11184}
+      Script: {instanceID: 11206}
     - Class: 114
-      Script: {instanceID: 11484}
+      Script: {instanceID: 11506}
     - Class: 114
-      Script: {instanceID: 11566}
+      Script: {instanceID: 11588}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -163,6 +189,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 50
+      Script: {instanceID: 0}
     - Class: 61
       Script: {instanceID: 0}
     - Class: 81
@@ -176,31 +204,110 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9704}
     - Class: 114
-      Script: {instanceID: 9876}
+      Script: {instanceID: 9878}
     - Class: 114
-      Script: {instanceID: 9910}
+      Script: {instanceID: 9880}
     - Class: 114
-      Script: {instanceID: 9918}
+      Script: {instanceID: 9912}
     - Class: 114
-      Script: {instanceID: 10262}
+      Script: {instanceID: 9920}
     - Class: 114
-      Script: {instanceID: 10322}
+      Script: {instanceID: 9962}
     - Class: 114
-      Script: {instanceID: 10456}
+      Script: {instanceID: 10028}
     - Class: 114
-      Script: {instanceID: 10698}
+      Script: {instanceID: 10230}
     - Class: 114
-      Script: {instanceID: 10946}
+      Script: {instanceID: 10270}
     - Class: 114
-      Script: {instanceID: 11184}
+      Script: {instanceID: 10334}
     - Class: 114
-      Script: {instanceID: 11396}
+      Script: {instanceID: 10472}
     - Class: 114
-      Script: {instanceID: 11566}
+      Script: {instanceID: 10474}
     - Class: 114
-      Script: {instanceID: 11582}
+      Script: {instanceID: 10520}
     - Class: 114
-      Script: {instanceID: 23674}
+      Script: {instanceID: 10716}
+    - Class: 114
+      Script: {instanceID: 10806}
+    - Class: 114
+      Script: {instanceID: 10874}
+    - Class: 114
+      Script: {instanceID: 10966}
+    - Class: 114
+      Script: {instanceID: 11056}
+    - Class: 114
+      Script: {instanceID: 11206}
+    - Class: 114
+      Script: {instanceID: 11418}
+    - Class: 114
+      Script: {instanceID: 11588}
+    - Class: 114
+      Script: {instanceID: 11604}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 212
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    Assets/Scenes/ModifyCar.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 50
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 9704}
+    - Class: 114
+      Script: {instanceID: 9878}
+    - Class: 114
+      Script: {instanceID: 9912}
+    - Class: 114
+      Script: {instanceID: 9920}
+    - Class: 114
+      Script: {instanceID: 10028}
+    - Class: 114
+      Script: {instanceID: 10230}
+    - Class: 114
+      Script: {instanceID: 10334}
+    - Class: 114
+      Script: {instanceID: 10520}
+    - Class: 114
+      Script: {instanceID: 10716}
+    - Class: 114
+      Script: {instanceID: 10940}
+    - Class: 114
+      Script: {instanceID: 11056}
+    - Class: 114
+      Script: {instanceID: 11206}
+    - Class: 114
+      Script: {instanceID: 11588}
+    - Class: 114
+      Script: {instanceID: 11608}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -241,37 +348,39 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9704}
     - Class: 114
-      Script: {instanceID: 9876}
-    - Class: 114
       Script: {instanceID: 9878}
     - Class: 114
-      Script: {instanceID: 9918}
+      Script: {instanceID: 9880}
     - Class: 114
-      Script: {instanceID: 10224}
+      Script: {instanceID: 9920}
     - Class: 114
-      Script: {instanceID: 10322}
+      Script: {instanceID: 10230}
     - Class: 114
-      Script: {instanceID: 10342}
+      Script: {instanceID: 10334}
     - Class: 114
-      Script: {instanceID: 10502}
+      Script: {instanceID: 10354}
     - Class: 114
-      Script: {instanceID: 10698}
+      Script: {instanceID: 10520}
     - Class: 114
-      Script: {instanceID: 10924}
+      Script: {instanceID: 10716}
     - Class: 114
-      Script: {instanceID: 10938}
+      Script: {instanceID: 10944}
     - Class: 114
-      Script: {instanceID: 11184}
+      Script: {instanceID: 10958}
     - Class: 114
-      Script: {instanceID: 11352}
+      Script: {instanceID: 11206}
     - Class: 114
-      Script: {instanceID: 11534}
+      Script: {instanceID: 11374}
     - Class: 114
       Script: {instanceID: 11556}
     - Class: 114
-      Script: {instanceID: 11566}
+      Script: {instanceID: 11578}
     - Class: 114
-      Script: {instanceID: 11582}
+      Script: {instanceID: 11588}
+    - Class: 114
+      Script: {instanceID: 11604}
+    - Class: 114
+      Script: {instanceID: 22402}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -319,6 +428,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_ScrollbarEventHandler
+  - hash:
+      serializedVersion: 2
+      Hash: ce59cbbb96cc4983b4d4998136516d98
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ItemDropHandler
   - hash:
       serializedVersion: 2
       Hash: 2d9015f76c31572517ebfe4e8d3340fe
@@ -385,6 +500,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_InputField
+  - hash:
+      serializedVersion: 2
+      Hash: fbdc38a20fb7dbd948833833b7ca9d59
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GameHistoryDialog
   - hash:
       serializedVersion: 2
       Hash: 7ab0e790220bdca831fdd886b339039d
@@ -459,16 +580,28 @@ ScriptsOnlyBuild:
     className: Mask
   - hash:
       serializedVersion: 2
+      Hash: 35e08f75186d19fbc041f7e4a28c26df
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: RemoveItemOnClick
+  - hash:
+      serializedVersion: 2
       Hash: caa533b001ae39b864ba8425019e2268
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Shadow
   - hash:
       serializedVersion: 2
-      Hash: 7f32af45e3f33e6195506851697996c6
+      Hash: 506ad2f356c312ced4dc3b1cc8fe0c98
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Garage
+  - hash:
+      serializedVersion: 2
+      Hash: 1d936fcfbe2e6cb950041fb8ce677f14
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ItemDragHandler
   - hash:
       serializedVersion: 2
       Hash: cc4274b586df3c02688bac01b88bd16c
@@ -501,10 +634,28 @@ ScriptsOnlyBuild:
     className: Selectable
   - hash:
       serializedVersion: 2
-      Hash: 1ab3d196912edbb81e416d65a80d5520
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerControls
+  - hash:
+      serializedVersion: 2
+      Hash: d2ab22c6796a3171967863051dbd1160
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CarOnClick
+  - hash:
+      serializedVersion: 2
+      Hash: c12d978b2fce1d411c98ffb2a2a3c4b1
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GarageButtons
+  - hash:
+      serializedVersion: 2
+      Hash: bd624175a26fed7864ad085c29386f12
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SettingsMenu
   - hash:
       serializedVersion: 2
       Hash: b3ab2106268377ffe25dd18ac23dca28
@@ -565,6 +716,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DatabaseDataAcces
+  - hash:
+      serializedVersion: 2
+      Hash: 345e08ce910bd5c0278f8dacaf4a7479
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GameHistory
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -633,6 +790,12 @@ ScriptsOnlyBuild:
     className: TimelineAsset
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GoToScript
+  - hash:
+      serializedVersion: 2
       Hash: 7793c214396625caf5ea1ef62985e852
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -675,7 +838,7 @@ ScriptsOnlyBuild:
     className: TMP_StyleSheet
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: d2ab22c6796a3171967863051dbd1160
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: BoxOnClick
@@ -699,7 +862,7 @@ ScriptsOnlyBuild:
     className: TMP_ColorGradient
   - hash:
       serializedVersion: 2
-      Hash: 7c21d0ab250f8b31eaafe6f67228ca5a
+      Hash: 4e278c7faf3b28d1278ab8b96b0719cc
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Game
@@ -765,6 +928,12 @@ ScriptsOnlyBuild:
     className: Toggle
   - hash:
       serializedVersion: 2
+      Hash: ccfc13d6f8acb963717762adeafeada2
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ModifyCar
+  - hash:
+      serializedVersion: 2
       Hash: 8220b46879dc5e37db1b940c938f5744
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -789,14 +958,15 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   - hash:
       serializedVersion: 2
-      Hash: 1ab3d196912edbb81e416d65a80d5520
+      Hash: 3afc815aa01947ad84681577814eb6a2
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: SettingsMenu
+    className: StartupButtons
   platform: 13
   scenePathNames:
   - Assets/Scenes/StartupScene.unity
   - Assets/Scenes/AddPlayer.unity
   - Assets/Scenes/Garage.unity
   - Assets/Scenes/Game.unity
+  - Assets/Scenes/ModifyCar.unity
   playerPath: C:/Users/Nebojsa/Desktop/cats.apk

@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: 6b507121dcc14584eb435daefb536349
+  - enabled: 1
+    path: Assets/Scenes/ModifyCar.unity
+    guid: 90b53d4f554494d41b4279cd37e10c20
   m_configObjects: {}

@@ -26,17 +26,4 @@ public class StartupScene : MonoBehaviour
 
     }
 
-    public void PlayButton()
-    {
-
-        PlayerPrefs.SetString("player", dropdown.captionText.text);
-
-        SceneManager.LoadScene("Garage");
-    }
-
-    public void AddPlayerButton()
-    {
-        SceneManager.LoadScene("AddPlayer");
-    }
-
 }
