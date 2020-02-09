@@ -330,24 +330,47 @@ public class Game : MonoBehaviour
         rocketAttack.rocket = missile;
         rocketAttack.attackId = attackId;
 
-        // Remove collisions with his chassis
+        // Remove collisions
+        IgnoreMissileCollisions(polygonCollider, player);
+ 
+    }
+
+    private void IgnoreMissileCollisions(PolygonCollider2D polygonCollider, int player)
+    {
         if (player == 0)
         {
             Physics2D.IgnoreCollision(polygonCollider, playerCar.renderedCar.chassis.GetComponent<PolygonCollider2D>());
-            if (playerCar.forklift != null)
-                Physics2D.IgnoreCollision(polygonCollider, playerCar.renderedCar.forklift.GetComponent<PolygonCollider2D>());
-            if (opponentCar.forklift != null)
-                Physics2D.IgnoreCollision(polygonCollider, opponentCar.renderedCar.forklift.GetComponent<PolygonCollider2D>());
         }
         else
         {
             Physics2D.IgnoreCollision(polygonCollider, opponentCar.renderedCar.chassis.GetComponent<PolygonCollider2D>());
-            if (playerCar.forklift != null)
-                Physics2D.IgnoreCollision(polygonCollider, playerCar.renderedCar.forklift.GetComponent<PolygonCollider2D>());
-            if (opponentCar.forklift != null)
-                Physics2D.IgnoreCollision(polygonCollider, opponentCar.renderedCar.forklift.GetComponent<PolygonCollider2D>());
         }
- 
+
+        if (playerCar.forklift != null)
+            Physics2D.IgnoreCollision(polygonCollider, playerCar.renderedCar.forklift.GetComponent<PolygonCollider2D>());
+        if (opponentCar.forklift != null)
+            Physics2D.IgnoreCollision(polygonCollider, opponentCar.renderedCar.forklift.GetComponent<PolygonCollider2D>());
+
+        if (playerCar.frontWheel != null)
+        {
+            Physics2D.IgnoreCollision(polygonCollider, playerCar.renderedCar.frontWheel.GetComponent<CircleCollider2D>());
+        }
+
+        if (playerCar.backWheel != null)
+        {
+            Physics2D.IgnoreCollision(polygonCollider, playerCar.renderedCar.backWheel.GetComponent<CircleCollider2D>());
+        }
+
+        if (opponentCar.frontWheel != null)
+        {
+            Physics2D.IgnoreCollision(polygonCollider, opponentCar.renderedCar.frontWheel.GetComponent<CircleCollider2D>());
+        }
+
+        if (opponentCar.backWheel != null)
+        {
+            Physics2D.IgnoreCollision(polygonCollider, opponentCar.renderedCar.backWheel.GetComponent<CircleCollider2D>());
+        }
+
     }
 
     public void RocketHit(int player, GameObject rocket, Vector3 direction)

@@ -80,17 +80,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10334}
     - Class: 114
-      Script: {instanceID: 10716}
+      Script: {instanceID: 10718}
     - Class: 114
-      Script: {instanceID: 10914}
+      Script: {instanceID: 10916}
     - Class: 114
-      Script: {instanceID: 11056}
+      Script: {instanceID: 11058}
     - Class: 114
-      Script: {instanceID: 11206}
+      Script: {instanceID: 11208}
     - Class: 114
-      Script: {instanceID: 11460}
+      Script: {instanceID: 11462}
     - Class: 114
-      Script: {instanceID: 11588}
+      Script: {instanceID: 11590}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -153,13 +153,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10334}
     - Class: 114
-      Script: {instanceID: 10716}
+      Script: {instanceID: 10718}
     - Class: 114
-      Script: {instanceID: 11206}
+      Script: {instanceID: 11208}
     - Class: 114
-      Script: {instanceID: 11506}
+      Script: {instanceID: 11508}
     - Class: 114
-      Script: {instanceID: 11588}
+      Script: {instanceID: 11590}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -228,23 +228,23 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10520}
     - Class: 114
-      Script: {instanceID: 10716}
+      Script: {instanceID: 10718}
     - Class: 114
-      Script: {instanceID: 10806}
+      Script: {instanceID: 10808}
     - Class: 114
-      Script: {instanceID: 10874}
+      Script: {instanceID: 10876}
     - Class: 114
-      Script: {instanceID: 10966}
+      Script: {instanceID: 10968}
     - Class: 114
-      Script: {instanceID: 11056}
+      Script: {instanceID: 11058}
     - Class: 114
-      Script: {instanceID: 11206}
+      Script: {instanceID: 11208}
     - Class: 114
-      Script: {instanceID: 11418}
+      Script: {instanceID: 11420}
     - Class: 114
-      Script: {instanceID: 11588}
+      Script: {instanceID: 11590}
     - Class: 114
-      Script: {instanceID: 11604}
+      Script: {instanceID: 11606}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -297,17 +297,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10520}
     - Class: 114
-      Script: {instanceID: 10716}
+      Script: {instanceID: 10718}
     - Class: 114
-      Script: {instanceID: 10940}
+      Script: {instanceID: 10942}
     - Class: 114
-      Script: {instanceID: 11056}
+      Script: {instanceID: 11058}
     - Class: 114
-      Script: {instanceID: 11206}
+      Script: {instanceID: 11208}
     - Class: 114
-      Script: {instanceID: 11588}
+      Script: {instanceID: 11590}
     - Class: 114
-      Script: {instanceID: 11608}
+      Script: {instanceID: 11610}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -362,25 +362,25 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10520}
     - Class: 114
-      Script: {instanceID: 10716}
+      Script: {instanceID: 10700}
     - Class: 114
-      Script: {instanceID: 10944}
+      Script: {instanceID: 10718}
     - Class: 114
-      Script: {instanceID: 10958}
+      Script: {instanceID: 10946}
     - Class: 114
-      Script: {instanceID: 11206}
+      Script: {instanceID: 10960}
     - Class: 114
-      Script: {instanceID: 11374}
+      Script: {instanceID: 11208}
     - Class: 114
-      Script: {instanceID: 11556}
+      Script: {instanceID: 11376}
     - Class: 114
-      Script: {instanceID: 11578}
+      Script: {instanceID: 11558}
     - Class: 114
-      Script: {instanceID: 11588}
+      Script: {instanceID: 11580}
     - Class: 114
-      Script: {instanceID: 11604}
+      Script: {instanceID: 11590}
     - Class: 114
-      Script: {instanceID: 22402}
+      Script: {instanceID: 11606}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -694,6 +694,12 @@ ScriptsOnlyBuild:
     className: TextContainer
   - hash:
       serializedVersion: 2
+      Hash: 3afc815aa01947ad84681577814eb6a2
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: StartupButtons
+  - hash:
+      serializedVersion: 2
       Hash: 5f1752ed2092162f016c19510c28a8b9
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -956,12 +962,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 3afc815aa01947ad84681577814eb6a2
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: StartupButtons
   platform: 13
   scenePathNames:
   - Assets/Scenes/StartupScene.unity
